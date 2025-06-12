@@ -62,7 +62,7 @@ final class OAuth2Service {
             }
             print("✅ Получен HTTP статус код: \(httpResponse.statusCode)")
 
-            guard (200...299).contains(httpResponse.statusCode) else {
+            guard 200...299 ~= httpResponse.statusCode else {
                 print("❌ Ошибка сервера с кодом: \(httpResponse.statusCode)")
                 DispatchQueue.main.async {
                     completion(.failure(NSError(domain: "OAuth2Service", code: httpResponse.statusCode, userInfo: [NSLocalizedDescriptionKey: "Server returned status code \(httpResponse.statusCode)"])))

@@ -14,10 +14,11 @@ final class AuthViewController: UIViewController {
             navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
             navigationItem.backBarButtonItem?.tintColor = UIColor(named: "YP Black")
             
-            guard
-                let webViewViewController = segue.destination as? WebViewViewController
-            else { fatalError("Failed to prepare for \(ShowWebViewSegueIdentifier)") }
-            webViewViewController.delegate = self
+            if let webViewViewController = segue.destination as? WebViewViewController {
+                webViewViewController.delegate = self
+            } else {
+                print("⚠️ Не удалось привести destination к WebViewViewController")
+            }
         } else {
             super.prepare(for: segue, sender: sender)
         }
@@ -33,15 +34,15 @@ final class AuthViewController: UIViewController {
 extension AuthViewController: WebViewViewControllerDelegate {
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
         OAuth2Service.shared.fetchOAuthToken(code) { [weak self] result in
+            guard let self else { return }
             switch result {
             case .success(let token):
-                print("Получен токен: \(token)")
+                print("✅ Получен токен: \(token)")
                 DispatchQueue.main.async {
-                    guard let self = self else { return }
                     self.delegate?.authViewController(self, didAuthenticateWithCode: code)
                 }
             case .failure(let error):
-                print("Ошибка получения токена: \(error)")
+                print("🚫 Ошибка получения токена: \(error)")
             }
         }
     }
@@ -50,3 +51,4 @@ extension AuthViewController: WebViewViewControllerDelegate {
         dismiss(animated: true)
     }
 }
+
