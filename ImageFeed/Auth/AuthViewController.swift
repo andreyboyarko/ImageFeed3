@@ -9,15 +9,31 @@ final class AuthViewController: UIViewController {
 
     weak var delegate: AuthViewControllerDelegate?
 
+    @IBOutlet var loginButton: UIButton!
+
+    private func configureLoginButton() {
+        let paragraphStyle = NSMutableParagraphStyle()
+        paragraphStyle.minimumLineHeight = 22
+        paragraphStyle.maximumLineHeight = 22
+        paragraphStyle.alignment = .center
+
+        let attributes: [NSAttributedString.Key: Any] = [
+            .font: UIFont.systemFont(ofSize: 17, weight: .bold),
+            .paragraphStyle: paragraphStyle,
+            .foregroundColor: UIColor.ypBlack
+        ]
+
+        let attributedTitle = NSAttributedString(string: "Войти", attributes: attributes)
+        loginButton.setAttributedTitle(attributedTitle, for: .normal)
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == ShowWebViewSegueIdentifier {
             navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
             navigationItem.backBarButtonItem?.tintColor = UIColor(named: "YP Black")
-            
-            if let webViewViewController = segue.destination as? WebViewViewController {
-                webViewViewController.delegate = self
-            } else {
-                print("⚠️ Не удалось привести destination к WebViewViewController")
+
+            if let webVC = segue.destination as? WebViewViewController {
+                webVC.delegate = self
             }
         } else {
             super.prepare(for: segue, sender: sender)
@@ -26,6 +42,7 @@ final class AuthViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        configureLoginButton()
         navigationController?.navigationBar.backIndicatorImage = UIImage(named: "nav_back_button")
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "nav_back_button")
     }
@@ -33,16 +50,18 @@ final class AuthViewController: UIViewController {
 
 extension AuthViewController: WebViewViewControllerDelegate {
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
-        OAuth2Service.shared.fetchOAuthToken(code) { [weak self] result in
-            guard let self else { return }
-            switch result {
-            case .success(let token):
-                print("✅ Получен токен: \(token)")
+        vc.dismiss(animated: true) { [weak self] in
+            guard let self = self else { return }
+            OAuth2Service.shared.fetchOAuthToken(code) { result in
                 DispatchQueue.main.async {
-                    self.delegate?.authViewController(self, didAuthenticateWithCode: code)
+                    switch result {
+                    case .success(let token):
+                        print("✅ Получен токен: \(token)")
+                        self.delegate?.authViewController(self, didAuthenticateWithCode: code)
+                    case .failure(let error):
+                        print("🚫 Ошибка получения токена: \(error)")
+                    }
                 }
-            case .failure(let error):
-                print("🚫 Ошибка получения токена: \(error)")
             }
         }
     }
