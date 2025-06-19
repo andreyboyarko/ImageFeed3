@@ -24,8 +24,25 @@ final class AuthViewController: UIViewController {
         ]
 
         let attributedTitle = NSAttributedString(string: "Войти", attributes: attributes)
+
+        // Устанавливаем для всех основных состояний
         loginButton.setAttributedTitle(attributedTitle, for: .normal)
+        loginButton.setAttributedTitle(attributedTitle, for: .highlighted)
+        loginButton.setAttributedTitle(attributedTitle, for: .selected)
+        loginButton.setAttributedTitle(attributedTitle, for: .disabled)
+
+        // Обязательно отключаем изменение цвета текста при выделении
+        loginButton.setTitleColor(UIColor.ypBlack, for: .highlighted)
+        loginButton.setTitleColor(UIColor.ypBlack, for: .selected)
+        loginButton.setTitleColor(UIColor.ypBlack, for: .disabled)
+
+        // Устанавливаем радиус закругления, если нужно
+        loginButton.layer.cornerRadius = 16
+        loginButton.layer.masksToBounds = true
+        
+        // мне пришлось установить шрифта через код, так как шрифт через Interface Builder не отображался корректно в симуляторе
     }
+
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == ShowWebViewSegueIdentifier {
@@ -42,9 +59,9 @@ final class AuthViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        configureLoginButton()
         navigationController?.navigationBar.backIndicatorImage = UIImage(named: "nav_back_button")
         navigationController?.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "nav_back_button")
+        configureLoginButton()
     }
 }
 
