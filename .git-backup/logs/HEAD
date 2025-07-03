@@ -1,0 +1,60 @@
+0000000000000000000000000000000000000000 e61585dd118c5593c85104b3dfd4f280d0207a6c Andrei Boyarko <andreyboyarko@gmail.com> 1745410555 +0200	commit (initial): Initial Commit
+e61585dd118c5593c85104b3dfd4f280d0207a6c e61585dd118c5593c85104b3dfd4f280d0207a6c Andrei Boyarko <andreyboyarko@gmail.com> 1745571732 +0200	checkout: moving from main to sprint_8
+e61585dd118c5593c85104b3dfd4f280d0207a6c e61585dd118c5593c85104b3dfd4f280d0207a6c Andrei Boyarko <andreyboyarko@gmail.com> 1746971630 +0200	reset: moving to HEAD
+e61585dd118c5593c85104b3dfd4f280d0207a6c e61585dd118c5593c85104b3dfd4f280d0207a6c Andrei Boyarko <andreyboyarko@gmail.com> 1746972173 +0200	checkout: moving from sprint_8 to e61585d
+e61585dd118c5593c85104b3dfd4f280d0207a6c 02efa335e5c7d0fd93dd505cc18ecf885b11eb3d Andrei Boyarko <andreyboyarko@gmail.com> 1746991662 +0200	commit: no message
+02efa335e5c7d0fd93dd505cc18ecf885b11eb3d e61585dd118c5593c85104b3dfd4f280d0207a6c Andrei Boyarko <andreyboyarko@gmail.com> 1746991959 +0200	checkout: moving from 02efa335e5c7d0fd93dd505cc18ecf885b11eb3d to sprint_8
+e61585dd118c5593c85104b3dfd4f280d0207a6c adc2d11f5f4f4b1b7dc249d39e4471b41ccc4d1f Andrei Boyarko <andreyboyarko@gmail.com> 1746992249 +0200	commit: test commit 1
+adc2d11f5f4f4b1b7dc249d39e4471b41ccc4d1f 708d84fdfc7c93068236a4d7fe7cbce7ff154dbf Andrei Boyarko <andreyboyarko@gmail.com> 1746992930 +0200	commit: Update LaunchScreen.storyboard
+708d84fdfc7c93068236a4d7fe7cbce7ff154dbf 68294632ecf6571a0572d62079c863fe7ef7907e Andrei Boyarko <andreyboyarko@gmail.com> 1746993519 +0200	commit: no message
+68294632ecf6571a0572d62079c863fe7ef7907e 68294632ecf6571a0572d62079c863fe7ef7907e Andrei Boyarko <andreyboyarko@gmail.com> 1746993550 +0200	checkout: moving from sprint_8 to sprint_8
+68294632ecf6571a0572d62079c863fe7ef7907e 455e164d63195a3ab69cc642b394073d4ea46b7d Andrei Boyarko <andreyboyarko@gmail.com> 1747047401 +0200	commit: test commit 2
+455e164d63195a3ab69cc642b394073d4ea46b7d 1f3d6da401fbb416de86ca26cdfbcef5b0a600d2 Andrei Boyarko <andreyboyarko@gmail.com> 1747098654 +0200	commit: no message
+1f3d6da401fbb416de86ca26cdfbcef5b0a600d2 a5a3ce929cc2e971f90c7a58adb2326f80adce5a Andrei Boyarko <andreyboyarko@gmail.com> 1747661120 +0200	commit: final commit
+a5a3ce929cc2e971f90c7a58adb2326f80adce5a a5a3ce929cc2e971f90c7a58adb2326f80adce5a Andrei Boyarko <andreyboyarko@gmail.com> 1747662048 +0200	checkout: moving from sprint_8 to sprint_8
+a5a3ce929cc2e971f90c7a58adb2326f80adce5a 50f4fa5e9d3d7614f31fb4aab541c8afee19adab Andrei Boyarko <andreyboyarko@gmail.com> 1747663063 +0200	rebase (start): checkout ImageFeed/main
+50f4fa5e9d3d7614f31fb4aab541c8afee19adab 555c41dd15f31bf3698e9eae1e03724e5096a8d8 Andrei Boyarko <andreyboyarko@gmail.com> 1747663063 +0200	rebase (pick): Initial Commit
+555c41dd15f31bf3698e9eae1e03724e5096a8d8 b0e8dad469c7e6afd48ff1a9b8aa05f48c714ffa Andrei Boyarko <andreyboyarko@gmail.com> 1747663063 +0200	rebase (pick): test commit 1
+b0e8dad469c7e6afd48ff1a9b8aa05f48c714ffa 0627015ea724b59ed42b27860e55ff5dde11525b Andrei Boyarko <andreyboyarko@gmail.com> 1747663063 +0200	rebase (pick): Update LaunchScreen.storyboard
+0627015ea724b59ed42b27860e55ff5dde11525b c0b244721dd55f475db7bd494d514571f7cfec52 Andrei Boyarko <andreyboyarko@gmail.com> 1747663063 +0200	rebase (pick): no message
+c0b244721dd55f475db7bd494d514571f7cfec52 c9b16f2b170618dfd5ee66e711982ef0174d1dd5 Andrei Boyarko <andreyboyarko@gmail.com> 1747663063 +0200	rebase (pick): test commit 2
+c9b16f2b170618dfd5ee66e711982ef0174d1dd5 6b64e8a29cc8ea45d9668b5e6834872911eb22da Andrei Boyarko <andreyboyarko@gmail.com> 1747663063 +0200	rebase (pick): no message
+6b64e8a29cc8ea45d9668b5e6834872911eb22da f7483cb05a16851e156fccd625e3e300f46cbf27 Andrei Boyarko <andreyboyarko@gmail.com> 1747663063 +0200	rebase (pick): final commit
+f7483cb05a16851e156fccd625e3e300f46cbf27 f7483cb05a16851e156fccd625e3e300f46cbf27 Andrei Boyarko <andreyboyarko@gmail.com> 1747663063 +0200	rebase (finish): returning to refs/heads/sprint_8
+f7483cb05a16851e156fccd625e3e300f46cbf27 2e17302a5ab566dbd85af69424a5bd8fbf80c543 Andrei Boyarko <andreyboyarko@gmail.com> 1747665080 +0200	commit: final 2
+2e17302a5ab566dbd85af69424a5bd8fbf80c543 2e17302a5ab566dbd85af69424a5bd8fbf80c543 Andrei Boyarko <andreyboyarko@gmail.com> 1747674469 +0200	checkout: moving from sprint_8 to sprint_8
+2e17302a5ab566dbd85af69424a5bd8fbf80c543 2e17302a5ab566dbd85af69424a5bd8fbf80c543 Andrei Boyarko <andreyboyarko@gmail.com> 1747674538 +0200	reset: moving to 2e17302a5ab566dbd85af69424a5bd8fbf80c543
+2e17302a5ab566dbd85af69424a5bd8fbf80c543 2e17302a5ab566dbd85af69424a5bd8fbf80c543 Andrei Boyarko <andreyboyarko@gmail.com> 1747674577 +0200	reset: moving to 2e17302a5ab566dbd85af69424a5bd8fbf80c543
+2e17302a5ab566dbd85af69424a5bd8fbf80c543 2e17302a5ab566dbd85af69424a5bd8fbf80c543 Andrei Boyarko <andreyboyarko@gmail.com> 1747674661 +0200	reset: moving to 2e17302a5ab566dbd85af69424a5bd8fbf80c543
+2e17302a5ab566dbd85af69424a5bd8fbf80c543 2e17302a5ab566dbd85af69424a5bd8fbf80c543 Andrei Boyarko <andreyboyarko@gmail.com> 1747675108 +0200	reset: moving to ImageFeed/sprint_8
+2e17302a5ab566dbd85af69424a5bd8fbf80c543 2e17302a5ab566dbd85af69424a5bd8fbf80c543 Andrei Boyarko <andreyboyarko@gmail.com> 1747693806 +0200	reset: moving to ImageFeed/sprint_8
+2e17302a5ab566dbd85af69424a5bd8fbf80c543 2e17302a5ab566dbd85af69424a5bd8fbf80c543 Andrei Boyarko <andreyboyarko@gmail.com> 1747694482 +0200	reset: moving to ImageFeed/sprint_8
+2e17302a5ab566dbd85af69424a5bd8fbf80c543 2e17302a5ab566dbd85af69424a5bd8fbf80c543 Andrei Boyarko <andreyboyarko@gmail.com> 1747694594 +0200	reset: moving to ImageFeed/sprint_8
+2e17302a5ab566dbd85af69424a5bd8fbf80c543 2e17302a5ab566dbd85af69424a5bd8fbf80c543 Andrei Boyarko <andreyboyarko@gmail.com> 1747695121 +0200	reset: moving to ImageFeed/sprint_8
+2e17302a5ab566dbd85af69424a5bd8fbf80c543 2e17302a5ab566dbd85af69424a5bd8fbf80c543 Andrei Boyarko <andreyboyarko@gmail.com> 1747737884 +0200	reset: moving to ImageFeed/sprint_8
+2e17302a5ab566dbd85af69424a5bd8fbf80c543 569dd96034135f49ef01ad41559df1762737cc9e Andrei Boyarko <andreyboyarko@gmail.com> 1747738189 +0200	commit: bug fixing
+569dd96034135f49ef01ad41559df1762737cc9e 704d93ca2cf4d6e8f5af7ef55784ffd88c96d035 Andrei Boyarko <andreyboyarko@gmail.com> 1747831368 +0200	commit: Внёс правки по замечаниям
+704d93ca2cf4d6e8f5af7ef55784ffd88c96d035 e61585dd118c5593c85104b3dfd4f280d0207a6c Andrei Boyarko <andreyboyarko@gmail.com> 1747831557 +0200	checkout: moving from sprint_8 to main
+e61585dd118c5593c85104b3dfd4f280d0207a6c 138307147b2bd8695b1f57ec9239ddcc61365f8f Andrei Boyarko <andreyboyarko@gmail.com> 1747831882 +0200	pull --rebase ImageFeed main (start): checkout 138307147b2bd8695b1f57ec9239ddcc61365f8f
+138307147b2bd8695b1f57ec9239ddcc61365f8f 138307147b2bd8695b1f57ec9239ddcc61365f8f Andrei Boyarko <andreyboyarko@gmail.com> 1747831882 +0200	pull --rebase ImageFeed main (finish): returning to refs/heads/main
+138307147b2bd8695b1f57ec9239ddcc61365f8f 138307147b2bd8695b1f57ec9239ddcc61365f8f Andrei Boyarko <andreyboyarko@gmail.com> 1747831937 +0200	checkout: moving from main to sprint_09
+138307147b2bd8695b1f57ec9239ddcc61365f8f f24b23eada3cf83339b30f09f3c74bd8ad7cd936 Andrei Boyarko <andreyboyarko@gmail.com> 1748436170 +0200	commit: chek
+f24b23eada3cf83339b30f09f3c74bd8ad7cd936 aff49b1aafc23d7417a72c895fb149d332239aeb Andrei Boyarko <andreyboyarko@gmail.com> 1748523452 +0200	commit: final version
+aff49b1aafc23d7417a72c895fb149d332239aeb aff49b1aafc23d7417a72c895fb149d332239aeb Andrei Boyarko <andreyboyarko@gmail.com> 1748523540 +0200	checkout: moving from sprint_09 to sprint_09
+aff49b1aafc23d7417a72c895fb149d332239aeb 138307147b2bd8695b1f57ec9239ddcc61365f8f Andrei Boyarko <andreyboyarko@gmail.com> 1748868543 +0200	checkout: moving from sprint_09 to main
+138307147b2bd8695b1f57ec9239ddcc61365f8f 138307147b2bd8695b1f57ec9239ddcc61365f8f Andrei Boyarko <andreyboyarko@gmail.com> 1748868600 +0200	checkout: moving from main to sprint10
+138307147b2bd8695b1f57ec9239ddcc61365f8f 0000000000000000000000000000000000000000 Andrei Boyarko <andreyboyarko@gmail.com> 1748868622 +0200	Branch: renamed refs/heads/sprint10 to refs/heads/sprint_10
+0000000000000000000000000000000000000000 138307147b2bd8695b1f57ec9239ddcc61365f8f Andrei Boyarko <andreyboyarko@gmail.com> 1748868622 +0200	Branch: renamed refs/heads/sprint10 to refs/heads/sprint_10
+138307147b2bd8695b1f57ec9239ddcc61365f8f 0bced6e4e59547271c055ae79bca0924b415b529 Andrei Boyarko <andreyboyarko@gmail.com> 1748873611 +0200	commit: Save Xcode debugger breakpoints
+0bced6e4e59547271c055ae79bca0924b415b529 aff49b1aafc23d7417a72c895fb149d332239aeb Andrei Boyarko <andreyboyarko@gmail.com> 1748873811 +0200	checkout: moving from sprint_10 to sprint_09
+aff49b1aafc23d7417a72c895fb149d332239aeb 138307147b2bd8695b1f57ec9239ddcc61365f8f Andrei Boyarko <andreyboyarko@gmail.com> 1748965023 +0200	checkout: moving from sprint_09 to main
+138307147b2bd8695b1f57ec9239ddcc61365f8f 339f34ec9e2f9795e962ab44970f66437e130b32 Andrei Boyarko <andreyboyarko@gmail.com> 1748965052 +0200	pull ImageFeed main: Fast-forward
+339f34ec9e2f9795e962ab44970f66437e130b32 339f34ec9e2f9795e962ab44970f66437e130b32 Andrei Boyarko <andreyboyarko@gmail.com> 1748965143 +0200	checkout: moving from main to sprint_10
+339f34ec9e2f9795e962ab44970f66437e130b32 d9578959d863f2d84777b98df9b1be091fd7df23 Andrei Boyarko <andreyboyarko@gmail.com> 1749479582 +0200	commit: Сохранил версию проекта после изменения
+d9578959d863f2d84777b98df9b1be091fd7df23 02bac6f36fecfdc1d6f89b68bb0b9a6cc2b71840 Andrei Boyarko <andreyboyarko@gmail.com> 1749503490 +0200	commit: сохранение изменений
+02bac6f36fecfdc1d6f89b68bb0b9a6cc2b71840 3e96b11b438f5257424ae0120b5125d15c1771b6 Andrei Boyarko <andreyboyarko@gmail.com> 1749507173 +0200	commit: сохранение изменений
+3e96b11b438f5257424ae0120b5125d15c1771b6 c4ad618a79b22afeeb874ea68c937031af666c60 Andrei Boyarko <andreyboyarko@gmail.com> 1749587332 +0200	commit: Удален дубликат Constants.swift, исправлены ошибки компиляции
+c4ad618a79b22afeeb874ea68c937031af666c60 bcf62f01ad23086f70965ca8017334d7bcf02912 Andrei Boyarko <andreyboyarko@gmail.com> 1749739375 +0200	commit: исправление ошибок
+bcf62f01ad23086f70965ca8017334d7bcf02912 e998c9564197735d6ae8eb258107cb2a35bd6232 Andrei Boyarko <andreyboyarko@gmail.com> 1749948201 +0200	commit: исправление ошибок
+e998c9564197735d6ae8eb258107cb2a35bd6232 eb1a1c4a71f8b2ab821fa5ef329e1d21a1608320 Andrei Boyarko <andreyboyarko@gmail.com> 1750068994 +0200	commit: исправление ошибок после ревью
+eb1a1c4a71f8b2ab821fa5ef329e1d21a1608320 81438678e2aa78f3e2894ee82ece78f7e1090327 Andrei Boyarko <andreyboyarko@gmail.com> 1750123413 +0200	commit: исправил файл с шрифтом

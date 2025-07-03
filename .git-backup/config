@@ -1,0 +1,19 @@
+[core]
+	bare = false
+	repositoryformatversion = 0
+	filemode = true
+	ignorecase = true
+	precomposeunicode = true
+	logallrefupdates = true
+[remote "ImageFeed"]
+	url = git@github.com:andreyboyarko/ImageFeed3.git
+	fetch = +refs/heads/*:refs/remotes/ImageFeed/*
+[branch "sprint_8"]
+	remote = ImageFeed
+	merge = refs/heads/sprint_8
+[branch "sprint_09"]
+	remote = ImageFeed
+	merge = refs/heads/sprint_09
+[branch "sprint_10"]
+	remote = ImageFeed
+	merge = refs/heads/sprint_10

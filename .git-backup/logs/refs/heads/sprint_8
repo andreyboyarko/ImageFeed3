@@ -1,0 +1,11 @@
+0000000000000000000000000000000000000000 e61585dd118c5593c85104b3dfd4f280d0207a6c Andrei Boyarko <andreyboyarko@gmail.com> 1745571732 +0200	branch: Created from main
+e61585dd118c5593c85104b3dfd4f280d0207a6c adc2d11f5f4f4b1b7dc249d39e4471b41ccc4d1f Andrei Boyarko <andreyboyarko@gmail.com> 1746992249 +0200	commit: test commit 1
+adc2d11f5f4f4b1b7dc249d39e4471b41ccc4d1f 708d84fdfc7c93068236a4d7fe7cbce7ff154dbf Andrei Boyarko <andreyboyarko@gmail.com> 1746992930 +0200	commit: Update LaunchScreen.storyboard
+708d84fdfc7c93068236a4d7fe7cbce7ff154dbf 68294632ecf6571a0572d62079c863fe7ef7907e Andrei Boyarko <andreyboyarko@gmail.com> 1746993519 +0200	commit: no message
+68294632ecf6571a0572d62079c863fe7ef7907e 455e164d63195a3ab69cc642b394073d4ea46b7d Andrei Boyarko <andreyboyarko@gmail.com> 1747047401 +0200	commit: test commit 2
+455e164d63195a3ab69cc642b394073d4ea46b7d 1f3d6da401fbb416de86ca26cdfbcef5b0a600d2 Andrei Boyarko <andreyboyarko@gmail.com> 1747098654 +0200	commit: no message
+1f3d6da401fbb416de86ca26cdfbcef5b0a600d2 a5a3ce929cc2e971f90c7a58adb2326f80adce5a Andrei Boyarko <andreyboyarko@gmail.com> 1747661120 +0200	commit: final commit
+a5a3ce929cc2e971f90c7a58adb2326f80adce5a f7483cb05a16851e156fccd625e3e300f46cbf27 Andrei Boyarko <andreyboyarko@gmail.com> 1747663063 +0200	rebase (finish): refs/heads/sprint_8 onto 50f4fa5e9d3d7614f31fb4aab541c8afee19adab
+f7483cb05a16851e156fccd625e3e300f46cbf27 2e17302a5ab566dbd85af69424a5bd8fbf80c543 Andrei Boyarko <andreyboyarko@gmail.com> 1747665080 +0200	commit: final 2
+2e17302a5ab566dbd85af69424a5bd8fbf80c543 569dd96034135f49ef01ad41559df1762737cc9e Andrei Boyarko <andreyboyarko@gmail.com> 1747738189 +0200	commit: bug fixing
+569dd96034135f49ef01ad41559df1762737cc9e 704d93ca2cf4d6e8f5af7ef55784ffd88c96d035 Andrei Boyarko <andreyboyarko@gmail.com> 1747831368 +0200	commit: Внёс правки по замечаниям

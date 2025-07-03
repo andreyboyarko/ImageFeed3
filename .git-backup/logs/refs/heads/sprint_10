@@ -1,0 +1,9 @@
+0000000000000000000000000000000000000000 339f34ec9e2f9795e962ab44970f66437e130b32 Andrei Boyarko <andreyboyarko@gmail.com> 1748965143 +0200	branch: Created from HEAD
+339f34ec9e2f9795e962ab44970f66437e130b32 d9578959d863f2d84777b98df9b1be091fd7df23 Andrei Boyarko <andreyboyarko@gmail.com> 1749479582 +0200	commit: Сохранил версию проекта после изменения
+d9578959d863f2d84777b98df9b1be091fd7df23 02bac6f36fecfdc1d6f89b68bb0b9a6cc2b71840 Andrei Boyarko <andreyboyarko@gmail.com> 1749503490 +0200	commit: сохранение изменений
+02bac6f36fecfdc1d6f89b68bb0b9a6cc2b71840 3e96b11b438f5257424ae0120b5125d15c1771b6 Andrei Boyarko <andreyboyarko@gmail.com> 1749507173 +0200	commit: сохранение изменений
+3e96b11b438f5257424ae0120b5125d15c1771b6 c4ad618a79b22afeeb874ea68c937031af666c60 Andrei Boyarko <andreyboyarko@gmail.com> 1749587332 +0200	commit: Удален дубликат Constants.swift, исправлены ошибки компиляции
+c4ad618a79b22afeeb874ea68c937031af666c60 bcf62f01ad23086f70965ca8017334d7bcf02912 Andrei Boyarko <andreyboyarko@gmail.com> 1749739375 +0200	commit: исправление ошибок
+bcf62f01ad23086f70965ca8017334d7bcf02912 e998c9564197735d6ae8eb258107cb2a35bd6232 Andrei Boyarko <andreyboyarko@gmail.com> 1749948201 +0200	commit: исправление ошибок
+e998c9564197735d6ae8eb258107cb2a35bd6232 eb1a1c4a71f8b2ab821fa5ef329e1d21a1608320 Andrei Boyarko <andreyboyarko@gmail.com> 1750068994 +0200	commit: исправление ошибок после ревью
+eb1a1c4a71f8b2ab821fa5ef329e1d21a1608320 81438678e2aa78f3e2894ee82ece78f7e1090327 Andrei Boyarko <andreyboyarko@gmail.com> 1750123413 +0200	commit: исправил файл с шрифтом
