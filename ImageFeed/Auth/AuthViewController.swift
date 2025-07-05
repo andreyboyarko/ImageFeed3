@@ -1,4 +1,5 @@
 import UIKit
+import ProgressHUD
 
 protocol AuthViewControllerDelegate: AnyObject {
     func authViewController(_ vc: AuthViewController, didAuthenticateWithCode code: String)
@@ -10,6 +11,9 @@ final class AuthViewController: UIViewController {
     weak var delegate: AuthViewControllerDelegate?
 
     @IBOutlet var loginButton: UIButton!
+
+    // Добавляем сервис
+    private let oauth2Service = OAuth2Service.shared
 
     private func configureLoginButton() {
         let paragraphStyle = NSMutableParagraphStyle()
@@ -25,24 +29,18 @@ final class AuthViewController: UIViewController {
 
         let attributedTitle = NSAttributedString(string: "Войти", attributes: attributes)
 
-        // Устанавливаем для всех основных состояний
         loginButton.setAttributedTitle(attributedTitle, for: .normal)
         loginButton.setAttributedTitle(attributedTitle, for: .highlighted)
         loginButton.setAttributedTitle(attributedTitle, for: .selected)
         loginButton.setAttributedTitle(attributedTitle, for: .disabled)
 
-        // Обязательно отключаем изменение цвета текста при выделении
         loginButton.setTitleColor(UIColor.ypBlack, for: .highlighted)
         loginButton.setTitleColor(UIColor.ypBlack, for: .selected)
         loginButton.setTitleColor(UIColor.ypBlack, for: .disabled)
 
-        // Устанавливаем радиус закругления, если нужно
         loginButton.layer.cornerRadius = 16
         loginButton.layer.masksToBounds = true
-        
-        // мне пришлось установить шрифта через код, так как шрифт через Interface Builder не отображался корректно в симуляторе
     }
-
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == ShowWebViewSegueIdentifier {
@@ -66,25 +64,56 @@ final class AuthViewController: UIViewController {
 }
 
 extension AuthViewController: WebViewViewControllerDelegate {
+    
     func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
         vc.dismiss(animated: true) { [weak self] in
             guard let self = self else { return }
-            OAuth2Service.shared.fetchOAuthToken(code) { result in
+            
+            UIBlockingProgressHUD.show() // Блокируем UI и показываем индикатор загрузки
+            
+            self.oauth2Service.fetchOAuthToken(code) { result in
                 DispatchQueue.main.async {
+                    UIBlockingProgressHUD.dismiss() // Скрываем индикатор и разблокируем UI
+                    
                     switch result {
-                    case .success(let token):
-                        print("✅ Получен токен: \(token)")
+                    case .success:
                         self.delegate?.authViewController(self, didAuthenticateWithCode: code)
                     case .failure(let error):
                         print("🚫 Ошибка получения токена: \(error)")
+                        // Если хочешь, можешь тут добавить alert для пользователя
                     }
                 }
             }
         }
     }
 
+    
     func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
         dismiss(animated: true)
     }
 }
 
+
+//extension AuthViewController: WebViewViewControllerDelegate {
+//    func webViewViewController(_ vc: WebViewViewController, didAuthenticateWithCode code: String) {
+//        vc.dismiss(animated: true) { [weak self] in
+//            guard let self = self else { return }
+//            OAuth2Service.shared.fetchOAuthToken(code) { result in
+//                DispatchQueue.main.async {
+//                    switch result {
+//                    case .success(let token):
+//                        print("✅ Получен токен: \(token)")
+//                        self.delegate?.authViewController(self, didAuthenticateWithCode: code)
+//                    case .failure(let error):
+//                        print("🚫 Ошибка получения токена: \(error)")
+//                    }
+//                }
+//            }
+//        }
+//    }
+//
+//    func webViewViewControllerDidCancel(_ vc: WebViewViewController) {
+//        dismiss(animated: true)
+//    }
+//}
+//
