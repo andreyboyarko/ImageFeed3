@@ -5,17 +5,16 @@ final class ProfileViewController: UIViewController {
     // MARK: - UI Elements
 
     private let avatarImageView: UIImageView = {
-        let imageView = UIImageView(image: UIImage(named: "avatar")) // загружаем фото
+        let imageView = UIImageView(image: UIImage(named: "avatar"))
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = 35 // делаем круглым (70 / 2)
+        imageView.layer.cornerRadius = 35
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
 
     private let nameLabel: UILabel = {
         let label = UILabel()
-        label.text = "Екатерина Новикова"
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 23, weight: .semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -24,16 +23,14 @@ final class ProfileViewController: UIViewController {
 
     private let loginNameLabel: UILabel = {
         let label = UILabel()
-        label.text = "@ekaterina_nov"
-        label.textColor = UIColor(named: "YP Gray") // из Assets
-        label.font = UIFont.systemFont(ofSize: 13) // System 13
+        label.textColor = UIColor(named: "YP Gray")
+        label.font = UIFont.systemFont(ofSize: 13)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
 
     private let descriptionLabel: UILabel = {
         let label = UILabel()
-        label.text = "Hellow, world!"
         label.textColor = .white
         label.font = UIFont.systemFont(ofSize: 13)
         label.numberOfLines = 0
@@ -57,9 +54,22 @@ final class ProfileViewController: UIViewController {
         setupViews()
         setupConstraints()
         setupActions()
+
+        updateProfileDetails()
     }
 
     // MARK: - Setup
+
+    private func updateProfileDetails() {
+    guard let profile = ProfileService.shared.profile else {
+        print("⚠️ Профиль не найден")
+        return
+    }
+    
+    nameLabel.text = profile.name.isEmpty ? profile.username : profile.name
+    loginNameLabel.text = profile.loginName
+    descriptionLabel.text = profile.bio ?? ""
+}
 
     private func setupViews() {
         view.addSubview(avatarImageView)
@@ -101,3 +111,4 @@ final class ProfileViewController: UIViewController {
         print("Logout tapped")
     }
 }
+
