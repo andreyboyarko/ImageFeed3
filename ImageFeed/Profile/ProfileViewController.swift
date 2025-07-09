@@ -1,4 +1,5 @@
 import UIKit
+import Kingfisher
 
 final class ProfileViewController: UIViewController {
 
@@ -45,6 +46,10 @@ final class ProfileViewController: UIViewController {
         return button
     }()
 
+    // MARK: - Observer
+
+    private var profileImageServiceObserver: NSObjectProtocol?
+
     // MARK: - Lifecycle
 
     override func viewDidLoad() {
@@ -54,22 +59,69 @@ final class ProfileViewController: UIViewController {
         setupViews()
         setupConstraints()
         setupActions()
-
         updateProfileDetails()
+
+        // Подписка на уведомление об изменении аватара
+        profileImageServiceObserver = NotificationCenter.default.addObserver(
+            forName: ProfileImageService.didChangeNotification,
+            object: nil,
+            queue: .main
+        ) { [weak self] _ in
+            guard let self = self else { return }
+            self.updateAvatar()
+        }
+        let cache = ImageCache.default
+        cache.memoryStorage.config.totalCostLimit = 300 * 1024 * 1024
+        cache.diskStorage.config.sizeLimit = 1000 * 1000 * 1000
+
+
+        // Обновление при запуске, если аватар уже есть
+        updateAvatar()
     }
 
     // MARK: - Setup
 
     private func updateProfileDetails() {
-    guard let profile = ProfileService.shared.profile else {
-        print("⚠️ Профиль не найден")
-        return
+        guard let profile = ProfileService.shared.profile else {
+            print("⚠️ Профиль не найден")
+            return
+        }
+
+        nameLabel.text = profile.name.isEmpty ? profile.username : profile.name
+        loginNameLabel.text = profile.loginName
+        descriptionLabel.text = profile.bio ?? ""
     }
     
-    nameLabel.text = profile.name.isEmpty ? profile.username : profile.name
-    loginNameLabel.text = profile.loginName
-    descriptionLabel.text = profile.bio ?? ""
-}
+    private func updateAvatar() {
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL)
+        else { return }
+
+        let processor = RoundCornerImageProcessor(cornerRadius: 35)
+
+        avatarImageView.kf.setImage(
+            with: url,
+            placeholder: UIImage(named: "placeholder.jpeg"),
+            options: [.processor(processor)]
+        ) { result in
+            switch result {
+            case .success(let value):
+                print("✅ Аватар загружен из: \(value.cacheType)")
+            case .failure(let error):
+                print("❌ Ошибка загрузки аватара: \(error)")
+            }
+        }
+    }
+
+//    private func updateAvatar() {
+//        guard
+//            let avatarURLString = ProfileImageService.shared.avatarURL,
+//            let url = URL(string: avatarURLString)
+//        else { return }
+//
+//        avatarImageView.kf.setImage(with: url, placeholder: UIImage(named: "avatar"))
+//    }
 
     private func setupViews() {
         view.addSubview(avatarImageView)
