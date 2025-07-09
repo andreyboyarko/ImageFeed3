@@ -114,15 +114,6 @@ final class ProfileViewController: UIViewController {
         }
     }
 
-//    private func updateAvatar() {
-//        guard
-//            let avatarURLString = ProfileImageService.shared.avatarURL,
-//            let url = URL(string: avatarURLString)
-//        else { return }
-//
-//        avatarImageView.kf.setImage(with: url, placeholder: UIImage(named: "avatar"))
-//    }
-
     private func setupViews() {
         view.addSubview(avatarImageView)
         view.addSubview(nameLabel)
