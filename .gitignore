@@ -1,0 +1,23 @@
+# Игнорируем пользовательские настройки Xcode
+*.xcuserstate
+*.xcworkspace/xcuserdata/
+
+# Логи системы
+*.log
+
+# Кэш сборки
+DerivedData/
+
+# Локальные настройки и временные файлы
+.idea/
+*.swp
+*.lock
+.DS_Store
+
+# Swift Package Manager
+/.build
+/Packages
+Package.resolved
+
+# User-specific files
+xcuserdata/
