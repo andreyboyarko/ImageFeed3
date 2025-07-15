@@ -20,7 +20,6 @@ final class WebViewViewController: UIViewController {
 
         webView.navigationDelegate = self
 
-        // Подписка на KVO — добавляем здесь
         webView.addObserver(
             self,
             forKeyPath: #keyPath(WKWebView.estimatedProgress),
@@ -72,7 +71,6 @@ final class WebViewViewController: UIViewController {
         }
     }
 
-    // Обязательно удаляем наблюдателя, чтобы не было крашей
     deinit {
         webView.removeObserver(self, forKeyPath: #keyPath(WKWebView.estimatedProgress))
     }

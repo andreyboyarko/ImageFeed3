@@ -91,7 +91,6 @@ final class ProfileService {
     }
 }
 
-
 // MARK: - Ошибки сети
 enum NetworkError: Error {
     case invalidRequest
