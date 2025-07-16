@@ -70,7 +70,7 @@ final class SplashViewController: UIViewController {
                 case .success(let token):
                     self.fetchProfile(token)
                 case .failure(let error):
-                    print("🚫 Ошибка получения токена: \(error)")
+                    print("❌ Ошибка получения токена: \(error)")
                 }
             }
         }
@@ -89,7 +89,7 @@ final class SplashViewController: UIViewController {
                     ProfileImageService.shared.fetchProfileImageURL(username: profile.username) { _ in }
                     self.switchToTabBarController()
                 case .failure(let error):
-                    print("🚫 Ошибка загрузки профиля: \(error)")
+                    print("❌ Ошибка загрузки профиля: \(error)")
                 }
             }
         }

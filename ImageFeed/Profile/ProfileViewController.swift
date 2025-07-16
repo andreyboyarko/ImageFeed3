@@ -83,7 +83,7 @@ final class ProfileViewController: UIViewController {
 
     private func updateProfileDetails() {
         guard let profile = ProfileService.shared.profile else {
-            print("⚠️ Профиль не найден")
+            print("❌ Профиль не найден")
             return
         }
 

@@ -64,7 +64,7 @@ final class ProfileImageService {
                 let avatarURL = result.profileImage.small
                 self?.avatarURL = avatarURL
 
-                // ✅ Публикуем уведомление
+                // Публикуем уведомление
                 NotificationCenter.default.post(
                     name: ProfileImageService.didChangeNotification,
                     object: self,
