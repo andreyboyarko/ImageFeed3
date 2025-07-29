@@ -55,4 +55,59 @@ final class ImagesListService {
         }
         task?.resume()
     }
+    
+    func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void) {
+        guard let url = URL(string: "https://api.unsplash.com/photos/\(photoId)/like") else {
+            completion(.failure(NSError(domain: "Invalid URL", code: 0)))
+            return
+        }
+
+        var request = URLRequest(url: url)
+        request.httpMethod = isLike ? "POST" : "DELETE"
+        request.setValue("Bearer \(OAuth2TokenStorage.shared.token!)", forHTTPHeaderField: "Authorization")
+
+        let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
+            DispatchQueue.main.async {
+                if let error = error {
+                    completion(.failure(error))
+                    return
+                }
+
+                guard let self = self else { return }
+
+                // Найдём нужное фото по id
+                if let index = self.photos.firstIndex(where: { $0.id == photoId }) {
+                    let photo = self.photos[index]
+                    let newPhoto = Photo(
+                        id: photo.id,
+                        size: photo.size,
+                        createdAt: photo.createdAt,
+                        welcomeDescription: photo.welcomeDescription,
+                        thumbImageURL: photo.thumbImageURL,
+                        largeImageURL: photo.largeImageURL,
+                        isLiked: !photo.isLiked
+                    )
+                    self.photos = self.photos.withReplaced(itemAt: index, newValue: newPhoto)
+
+                    NotificationCenter.default.post(
+                        name: ImagesListService.didChangeNotification,
+                        object: self
+                    )
+                }
+
+                completion(.success(()))
+            }
+        }
+
+        task.resume()
+    }
 }
+ 
+extension Array {
+    func withReplaced(itemAt index: Int, newValue: Element) -> [Element] {
+        var newArray = self
+        newArray[index] = newValue
+        return newArray
+    }
+}
+
