@@ -135,18 +135,24 @@ extension ImagesListViewController: ImagesListCellDelegate {
         guard let indexPath = tableView.indexPath(for: cell) else { return }
         let photo = photos[indexPath.row]
 
-        UIBlockingProgressHUD.show() // если используешь блокирующий HUD
-
+        UIBlockingProgressHUD.show()
         imagesListService.changeLike(photoId: photo.id, isLike: !photo.isLiked) { [weak self] result in
             guard let self = self else { return }
-            UIBlockingProgressHUD.dismiss() // если используешь HUD
+            UIBlockingProgressHUD.dismiss()
 
             switch result {
             case .success:
                 self.photos = self.imagesListService.photos
-                self.tableView.reloadRows(at: [indexPath], with: .automatic)
+                cell.setIsLiked(self.photos[indexPath.row].isLiked)
+
             case .failure:
-                print("Ошибка при смене лайка")
+                let alert = UIAlertController(
+                    title: "Ошибка",
+                    message: "Не удалось поставить лайк. Попробуйте позже.",
+                    preferredStyle: .alert
+                )
+                alert.addAction(UIAlertAction(title: "Ок", style: .default))
+                self.present(alert, animated: true)
             }
         }
     }

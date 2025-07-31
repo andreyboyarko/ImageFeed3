@@ -29,7 +29,6 @@ final class ImagesListService {
             isLiked: photoResult.likedByUser
         )
     }
-
     
     func fetchPhotosNextPage() {
         guard !isFetching else { return }
@@ -39,17 +38,34 @@ final class ImagesListService {
         
         var request = URLRequest(url: url)
         request.setValue("Client-ID \(Constants.accessKey)", forHTTPHeaderField: "Authorization")
+        
         task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
             DispatchQueue.main.async {
                 guard let self = self else { return }
                 defer { self.isFetching = false }
                 
-                if let data = data,
-                   let photoResults = try? JSONDecoder().decode([PhotoResult].self, from: data) {
+                if let error = error {
+                    print("[fetchPhotosNextPage | ImagesListService]: request error \(error.localizedDescription), page: \(nextPage)")
+                    return
+                }
+                
+                guard let data = data else {
+                    print("[fetchPhotosNextPage | ImagesListService]: no data received, page: \(nextPage)")
+                    return
+                }
+                
+                do {
+                    let photoResults = try JSONDecoder().decode([PhotoResult].self, from: data)
                     let newPhotos = photoResults.map { self.convert(photoResult: $0) }
                     self.photos.append(contentsOf: newPhotos)
                     self.lastLoadedPage = nextPage
                     NotificationCenter.default.post(name: ImagesListService.didChangeNotification, object: self)
+                } catch {
+                    print("""
+                    [fetchPhotosNextPage | ImagesListService]: decoding error \(error.localizedDescription)
+                    page: \(nextPage)
+                    raw data: \(String(data: data, encoding: .utf8) ?? "nil")
+                    """)
                 }
             }
         }
@@ -58,24 +74,26 @@ final class ImagesListService {
     
     func changeLike(photoId: String, isLike: Bool, _ completion: @escaping (Result<Void, Error>) -> Void) {
         guard let url = URL(string: "https://api.unsplash.com/photos/\(photoId)/like") else {
-            completion(.failure(NSError(domain: "Invalid URL", code: 0)))
+            let error = NSError(domain: "Invalid URL", code: 0)
+            print("[changeLike | ImagesListService]: invalid URL for photoId: \(photoId), isLike: \(isLike)")
+            completion(.failure(error))
             return
         }
-
+        
         var request = URLRequest(url: url)
         request.httpMethod = isLike ? "POST" : "DELETE"
         request.setValue("Bearer \(OAuth2TokenStorage.shared.token!)", forHTTPHeaderField: "Authorization")
-
+        
         let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
             DispatchQueue.main.async {
                 if let error = error {
+                    print("[changeLike | ImagesListService]: request error \(error.localizedDescription), photoId: \(photoId), isLike: \(isLike)")
                     completion(.failure(error))
                     return
                 }
-
+                
                 guard let self = self else { return }
-
-                // Найдём нужное фото по id
+                
                 if let index = self.photos.firstIndex(where: { $0.id == photoId }) {
                     let photo = self.photos[index]
                     let newPhoto = Photo(
@@ -88,21 +106,20 @@ final class ImagesListService {
                         isLiked: !photo.isLiked
                     )
                     self.photos = self.photos.withReplaced(itemAt: index, newValue: newPhoto)
-
+                    
                     NotificationCenter.default.post(
                         name: ImagesListService.didChangeNotification,
                         object: self
                     )
                 }
-
+                
                 completion(.success(()))
             }
         }
-
+        
         task.resume()
     }
 }
- 
 extension Array {
     func withReplaced(itemAt index: Int, newValue: Element) -> [Element] {
         var newArray = self

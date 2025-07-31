@@ -4,8 +4,7 @@ import UIKit
 
 final class ProfileService {
 
-    static let shared = ProfileService() // строгий синглтон
-
+    static let shared = ProfileService()
     private init() {}
 
     private var task: URLSessionTask?
@@ -80,7 +79,7 @@ final class ProfileService {
                     bio: profileResult.bio
                 )
 
-                self?.profile = profile // сохраняем результат
+                self?.profile = profile 
                 completion(.success(profile))
             } catch {
                 completion(.failure(error))

@@ -60,8 +60,11 @@ final class ProfileViewController: UIViewController {
         setupConstraints()
         setupActions()
         updateProfileDetails()
+        avatarImageView.startSkeletonAnimation(cornerRadius: 35)
+        nameLabel.startSkeletonAnimation()
+        loginNameLabel.startSkeletonAnimation()
+        descriptionLabel.startSkeletonAnimation()
 
-        // Подписка на уведомление об изменении аватара
         profileImageServiceObserver = NotificationCenter.default.addObserver(
             forName: ProfileImageService.didChangeNotification,
             object: nil,
@@ -70,49 +73,15 @@ final class ProfileViewController: UIViewController {
             guard let self = self else { return }
             self.updateAvatar()
         }
+
         let cache = ImageCache.default
         cache.memoryStorage.config.totalCostLimit = 300 * 1024 * 1024
         cache.diskStorage.config.sizeLimit = 1000 * 1000 * 1000
 
-
-        // Обновление при запуске, если аватар уже есть
         updateAvatar()
     }
 
-    // MARK: - Setup
-
-    private func updateProfileDetails() {
-        guard let profile = ProfileService.shared.profile else {
-            print("❌ Профиль не найден")
-            return
-        }
-
-        nameLabel.text = profile.name.isEmpty ? profile.username : profile.name
-        loginNameLabel.text = profile.loginName
-        descriptionLabel.text = profile.bio ?? ""
-    }
-    
-    private func updateAvatar() {
-        guard
-            let profileImageURL = ProfileImageService.shared.avatarURL,
-            let url = URL(string: profileImageURL)
-        else { return }
-
-        let processor = RoundCornerImageProcessor(cornerRadius: 35)
-
-        avatarImageView.kf.setImage(
-            with: url,
-            placeholder: UIImage(named: "placeholder.jpeg"),
-            options: [.processor(processor)]
-        ) { result in
-            switch result {
-            case .success(let value):
-                print("✅ Аватар загружен из: \(value.cacheType)")
-            case .failure(let error):
-                print("❌ Ошибка загрузки аватара: \(error)")
-            }
-        }
-    }
+    // MARK: - Setup UI
 
     private func setupViews() {
         view.addSubview(avatarImageView)
@@ -148,10 +117,67 @@ final class ProfileViewController: UIViewController {
         logoutButton.addTarget(self, action: #selector(didTapLogoutButton), for: .touchUpInside)
     }
 
+    private func updateProfileDetails() {
+        guard let profile = ProfileService.shared.profile else {
+            print("❌ Профиль не найден")
+            return
+        }
+
+        nameLabel.text = profile.name.isEmpty ? profile.username : profile.name
+        loginNameLabel.text = profile.loginName
+        descriptionLabel.text = profile.bio ?? ""
+    }
+
+    private func updateAvatar() {
+        guard
+            let profileImageURL = ProfileImageService.shared.avatarURL,
+            let url = URL(string: profileImageURL)
+        else { return }
+
+        let processor = RoundCornerImageProcessor(cornerRadius: 35)
+
+        avatarImageView.kf.setImage(
+            with: url,
+            placeholder: UIImage(named: "placeholder.jpeg"),
+            options: [.processor(processor)]
+        ) { result in
+            switch result {
+            case .success(let value):
+                print("✅ Аватар загружен из: \(value.cacheType)")
+            case .failure(let error):
+                print("❌ Ошибка загрузки аватара: \(error)")
+            }
+        }
+    }
+
     // MARK: - Actions
 
     @objc private func didTapLogoutButton() {
-        print("Logout tapped")
+        showLogoutAlert()
     }
-}
 
+    private func showLogoutAlert() {
+        let alert = UIAlertController(
+            title: "Пока, пока!",
+            message: "Уверены, что хотите выйти?",
+            preferredStyle: .alert
+        )
+
+        alert.addAction(UIAlertAction(title: "Нет", style: .cancel))
+        alert.addAction(UIAlertAction(title: "Да", style: .destructive) { _ in
+            self.logout()
+        })
+
+        present(alert, animated: true)
+    }
+
+    private func logout() {
+        ProfileLogoutService.shared.logout()
+        OAuth2TokenStorage.shared.token = nil
+
+        guard let window = UIApplication.shared.windows.first else { return }
+        window.rootViewController = SplashViewController()
+    }
+    
+    
+}
