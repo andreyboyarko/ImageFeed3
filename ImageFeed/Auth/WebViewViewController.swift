@@ -51,12 +51,10 @@ final class WebViewViewController: UIViewController {
         webView.load(request)
     }
 
-    // Отмена по кнопке "назад"
     @IBAction private func didTapBackButton(_ sender: Any?) {
         delegate?.webViewViewControllerDidCancel(self)
     }
 
-    // KVO: обработка прогресса загрузки
     override func observeValue(
         forKeyPath keyPath: String?,
         of object: Any?,
@@ -76,7 +74,6 @@ final class WebViewViewController: UIViewController {
     }
 }
 
-// Обработка навигации (парсим code)
 extension WebViewViewController: WKNavigationDelegate {
 
     func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
