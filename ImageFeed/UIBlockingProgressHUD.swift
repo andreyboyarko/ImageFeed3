@@ -1,19 +1,21 @@
-
 import UIKit
 import ProgressHUD
 
 final class UIBlockingProgressHUD {
-    private static var window: UIWindow? {
-        return UIApplication.shared.windows.first
-    }
-    
+    private static var blockingWindow: UIWindow?
+
     static func show() {
-        window?.isUserInteractionEnabled = false
+        blockingWindow = UIWindow(frame: UIScreen.main.bounds)
+        blockingWindow?.rootViewController = UIViewController()
+        blockingWindow?.windowLevel = .alert + 1
+        blockingWindow?.makeKeyAndVisible()
+        ProgressHUD.animationType = .circleStrokeSpin
         ProgressHUD.animate()
     }
-    
+
     static func dismiss() {
-        window?.isUserInteractionEnabled = true
         ProgressHUD.dismiss()
+        blockingWindow?.isHidden = true
+        blockingWindow = nil
     }
 }

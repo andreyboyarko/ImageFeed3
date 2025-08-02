@@ -42,6 +42,9 @@
                                                 <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="close" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Psg-Ak-gjG" userLabel="Like Button">
                                                     <rect key="frame" x="354" y="0.0" width="44" height="44"/>
                                                     <buttonConfiguration key="configuration" style="plain" image="Active"/>
+                                                    <connections>
+                                                        <action selector="likeButtonClicked" destination="O5G-XX-Erl" eventType="touchUpInside" id="ojM-25-qvI"/>
+                                                    </connections>
                                                 </button>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1 мая 2020" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rWg-5H-9Gg" userLabel="Date Label">
                                                     <rect key="frame" x="24" y="158" width="68.666666666666671" height="16"/>
@@ -98,7 +101,6 @@
         <!--Tab Bar Controller-->
         <scene sceneID="xPW-ZH-XOf">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="fmU-7w-lC0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <tabBarController storyboardIdentifier="TabBarController" id="Nwl-3j-HZr" customClass="TabBarController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="q2K-eR-IyY">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="49"/>
@@ -110,6 +112,7 @@
                         </tabBarAppearance>
                     </tabBar>
                 </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="fmU-7w-lC0" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1431" y="-680"/>
         </scene>
@@ -188,7 +191,7 @@
         <!--Unsplash-->
         <scene sceneID="DYs-HS-885">
             <objects>
-                <viewController storyboardIdentifier="SplashViewController" id="bIs-EQ-erM" customClass="SplashViewController" customModule="Image_Feed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SplashViewController" id="bIs-EQ-erM" customClass="SplashViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="esa-BZ-Q2N">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -216,7 +219,7 @@
         <!--Web View View Controller-->
         <scene sceneID="BmT-7b-bqn">
             <objects>
-                <viewController id="cT8-F2-DLW" customClass="WebViewViewController" customModule="Image_Feed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="cT8-F2-DLW" customClass="WebViewViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="ZTQ-Um-PMe">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -273,7 +276,7 @@
         <!--Auth View Controller-->
         <scene sceneID="0Ul-K0-S3X">
             <objects>
-                <viewController storyboardIdentifier="AuthViewController" id="YHR-N7-vzL" customClass="AuthViewController" customModule="Image_Feed" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AuthViewController" id="YHR-N7-vzL" customClass="AuthViewController" customModule="ImageFeed" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="fMB-sO-FZS">
                         <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
