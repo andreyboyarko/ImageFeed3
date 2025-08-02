@@ -48,14 +48,14 @@ final class SingleImageViewController: UIViewController {
 
         imageView.kf.setImage(with: imageURL,
                               placeholder: UIImage(named: "placeholder")) { [weak self] result in
-            guard let self = self else { return }
-
             UIBlockingProgressHUD.dismiss()
+
+            guard let self = self else { return }
 
             switch result {
             case .success(let value):
                 self.imageView.image = value.image
-                self.imageView.frame.size = value.image.size  // ✅ ВАЖНО: задаём правильный размер
+                self.imageView.frame.size = value.image.size 
                 self.rescaleAndCenterImageInScrollView(image: value.image)
             case .failure:
                 self.showError()

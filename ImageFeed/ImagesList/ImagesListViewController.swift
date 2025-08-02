@@ -11,12 +11,12 @@ final class ImagesListViewController: UIViewController {
     
     private let imagesListService = ImagesListService.shared
     
-    private let dateFormatter: DateFormatter = {
-        let formatter = DateFormatter()
-        formatter.dateStyle = .long
-        formatter.timeStyle = .none
-        return formatter
-    }()
+    private lazy var dateFormatter: DateFormatter = {
+            let formatter = DateFormatter()
+            formatter.dateStyle = .long
+            formatter.timeStyle = .none
+            return formatter
+        }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -124,11 +124,17 @@ extension ImagesListViewController {
             self?.tableView.endUpdates()
         }
 
-        cell.dateLabel.text = photo.createdAt != nil ? dateFormatter.string(from: photo.createdAt!) : ""
+        if let createdAt = photo.createdAt {
+            cell.dateLabel.text = dateFormatter.string(from: createdAt)
+        } else {
+            cell.dateLabel.text = ""
+        }
+
         cell.setIsLiked(photo.isLiked)
         cell.delegate = self
     }
 }
+
 // MARK: - ImagesListCellDelegate
 extension ImagesListViewController: ImagesListCellDelegate {
     func imageListCellDidTapLike(_ cell: ImagesListCell) {
@@ -137,8 +143,8 @@ extension ImagesListViewController: ImagesListCellDelegate {
 
         UIBlockingProgressHUD.show()
         imagesListService.changeLike(photoId: photo.id, isLike: !photo.isLiked) { [weak self] result in
-            guard let self = self else { return }
             UIBlockingProgressHUD.dismiss()
+            guard let self = self else { return }
 
             switch result {
             case .success:

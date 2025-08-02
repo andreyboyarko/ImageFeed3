@@ -1,4 +1,3 @@
-
 import Foundation
 
 final class ImagesListService {
@@ -14,9 +13,13 @@ final class ImagesListService {
     
     private var task: URLSessionTask?
     
-    private func convert(photoResult: PhotoResult) -> Photo {
+    private let iso8601DateFormatter: ISO8601DateFormatter = {
         let formatter = ISO8601DateFormatter()
-        let date = formatter.date(from: photoResult.createdAt)
+        return formatter
+    }()
+
+    private func convert(photoResult: PhotoResult) -> Photo {
+        let date = iso8601DateFormatter.date(from: photoResult.createdAt)
         let size = CGSize(width: photoResult.width, height: photoResult.height)
         
         return Photo(
@@ -86,13 +89,13 @@ final class ImagesListService {
         
         let task = URLSession.shared.dataTask(with: request) { [weak self] data, response, error in
             DispatchQueue.main.async {
+                guard let self = self else { return }
+                
                 if let error = error {
                     print("[changeLike | ImagesListService]: request error \(error.localizedDescription), photoId: \(photoId), isLike: \(isLike)")
                     completion(.failure(error))
                     return
                 }
-                
-                guard let self = self else { return }
                 
                 if let index = self.photos.firstIndex(where: { $0.id == photoId }) {
                     let photo = self.photos[index]
@@ -120,6 +123,7 @@ final class ImagesListService {
         task.resume()
     }
 }
+
 extension Array {
     func withReplaced(itemAt index: Int, newValue: Element) -> [Element] {
         var newArray = self
@@ -127,4 +131,3 @@ extension Array {
         return newArray
     }
 }
-
