@@ -6,7 +6,7 @@ final class ImagesListService {
     
     static let didChangeNotification = Notification.Name("ImagesListServiceDidChange")
     
-    private (set) var photos: [Photo] = []
+    private(set) var photos: [Photo] = []
     private var lastLoadedPage = 0
     private var isFetching = false
     private let perPage = 10
