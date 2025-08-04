@@ -1,5 +1,3 @@
-
-
 @testable import ImageFeed
 import Foundation
 
@@ -11,7 +9,9 @@ final class WebViewPresenterSpy: WebViewPresenterProtocol {
         viewDidLoadCalled = true
     }
 
-    func didUpdateProgressValue(_ newValue: Double) {}
+    func didUpdateProgressValue(_ newValue: Double) {
+        // Пустая реализация для Spy
+    }
 
     func code(from url: URL) -> String? {
         return nil
