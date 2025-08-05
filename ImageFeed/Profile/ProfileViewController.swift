@@ -1,7 +1,18 @@
 import UIKit
 import Kingfisher
 
+protocol ProfileViewControllerProtocol: AnyObject {
+    func updateUI()  // Логику доабвлю позже
+}
+
 final class ProfileViewController: UIViewController {
+    
+    private var presenter: ProfilePresenterProtocol!
+
+    func configure(_ presenter: ProfilePresenterProtocol) {
+        self.presenter = presenter
+        presenter.view = self
+    }
 
     // MARK: - UI Elements
 
@@ -54,6 +65,7 @@ final class ProfileViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter.viewDidLoad()
         view.backgroundColor = UIColor(named: "YP Black")
 
         setupViews()
@@ -64,6 +76,7 @@ final class ProfileViewController: UIViewController {
         nameLabel.startSkeletonAnimation()
         loginNameLabel.startSkeletonAnimation()
         descriptionLabel.startSkeletonAnimation()
+        nameLabel.accessibilityIdentifier = "usernameLabel"
 
         profileImageServiceObserver = NotificationCenter.default.addObserver(
             forName: ProfileImageService.didChangeNotification,
@@ -179,5 +192,18 @@ final class ProfileViewController: UIViewController {
         window.rootViewController = SplashViewController()
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowProfile" {
+            let profileVC = segue.destination as! ProfileViewController
+            let presenter = ProfilePresenter()
+            profileVC.configure(presenter)
+        }
+    }
+
     
+}
+extension ProfileViewController: ProfileViewControllerProtocol {
+    func updateUI() {
+        // Логику доабвлю позже
+    }
 }

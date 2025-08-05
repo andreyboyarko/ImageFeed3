@@ -1,10 +1,22 @@
 import UIKit
 import Kingfisher
 
+protocol ImagesListViewControllerProtocol: AnyObject {
+    func updateTableView() // // Логику доабвлю позже
+}
+
 final class ImagesListViewController: UIViewController {
+    
+    private var presenter: ImagesListPresenterProtocol!
+    func configure(_ presenter: ImagesListPresenterProtocol) {
+           self.presenter = presenter
+           presenter.view = self
+       }
+    
     private let showSingleImageSegueIdentifier = "ShowSingleImage"
     
-    @IBOutlet private var tableView: UITableView!
+
+    @IBOutlet weak var tableView: UITableView!
     
     private var photos: [Photo] = []
     private var imagesListServiceObserver: NSObjectProtocol?
@@ -20,6 +32,7 @@ final class ImagesListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter.viewDidLoad()
         configureTableView()
         imagesListService.fetchPhotosNextPage()
         subscribeToNotifications()
@@ -163,4 +176,11 @@ extension ImagesListViewController: ImagesListCellDelegate {
         }
     }
 }
+
+extension ImagesListViewController: ImagesListViewControllerProtocol {
+    func updateTableView() {
+      // Логику доабвлю позже
+    }
+}
+
 

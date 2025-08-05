@@ -2,16 +2,35 @@
 import UIKit
  
 final class TabBarController: UITabBarController {
-       override func awakeFromNib() {
-           super.awakeFromNib()
-           let storyboard = UIStoryboard(name: "Main", bundle: .main)
-           let imagesListViewController = storyboard.instantiateViewController(withIdentifier: "ImagesListViewController")
-           let profileViewController = ProfileViewController()
-           profileViewController.tabBarItem = UITabBarItem(
-               title: "",
-               image: UIImage(named: "tab_profile_active"),
-               selectedImage: nil
-           )
-           self.viewControllers = [imagesListViewController, profileViewController]
-       }
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: .main)
+        let imagesListViewController = storyboard.instantiateViewController(withIdentifier: "ImagesListViewController")
+        // ВОТ ЗДЕСЬ добавь print:
+        print("Loaded VC: \(imagesListViewController), type: \(type(of: imagesListViewController))")
+        
+        let profileViewController = ProfileViewController()
+        profileViewController.tabBarItem = UITabBarItem(
+            title: "",
+            image: UIImage(named: "tab_profile_active"),
+            selectedImage: nil
+        )
+        self.viewControllers = [imagesListViewController, profileViewController]
+    }
 }
+
+//final class TabBarController: UITabBarController {
+//       override func awakeFromNib() {
+//           super.awakeFromNib()
+//           let storyboard = UIStoryboard(name: "Main", bundle: .main)
+//           let imagesListViewController = storyboard.instantiateViewController(withIdentifier: "ImagesListViewController")
+//           let profileViewController = ProfileViewController()
+//           profileViewController.tabBarItem = UITabBarItem(
+//               title: "",
+//               image: UIImage(named: "tab_profile_active"),
+//               selectedImage: nil
+//           )
+//           self.viewControllers = [imagesListViewController, profileViewController]
+//       }
+//}

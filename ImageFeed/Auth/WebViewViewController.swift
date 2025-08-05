@@ -26,6 +26,8 @@ final class WebViewViewController: UIViewController & WebViewViewControllerProto
 
         presenter?.view = self  // presenter уже должен быть установлен до этого (в prepare for segue)
         webView.navigationDelegate = self
+        
+        webView.accessibilityIdentifier = "UnsplashWebView"
 
         webView.addObserver(
             self,
