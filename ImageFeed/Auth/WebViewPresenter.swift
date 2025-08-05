@@ -1,10 +1,6 @@
 
 import Foundation
 
-//enum WebViewConstants {
-//    static let unsplashAuthorizeURLString = "https://unsplash.com/oauth/authorize"
-//}
-
 public protocol WebViewPresenterProtocol: AnyObject {
     var view: WebViewViewControllerProtocol? { get set }
     func viewDidLoad()

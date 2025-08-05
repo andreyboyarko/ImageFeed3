@@ -66,20 +66,6 @@ final class AuthViewController: UIViewController {
         }
     }
 
-
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == ShowWebViewSegueIdentifier {
-//            navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
-//            navigationItem.backBarButtonItem?.tintColor = UIColor(named: "YP Black")
-//
-//            if let webVC = segue.destination as? WebViewViewController {
-//                webVC.delegate = self
-//            }
-//        } else {
-//            super.prepare(for: segue, sender: sender)
-//        }
-//    }
-
     override func viewDidLoad() {
         super.viewDidLoad()
 

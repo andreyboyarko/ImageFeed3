@@ -24,7 +24,7 @@ final class WebViewViewController: UIViewController & WebViewViewControllerProto
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        presenter?.view = self  // presenter уже должен быть установлен до этого (в prepare for segue)
+        presenter?.view = self
         webView.navigationDelegate = self
         
         webView.accessibilityIdentifier = "UnsplashWebView"
@@ -35,7 +35,7 @@ final class WebViewViewController: UIViewController & WebViewViewControllerProto
             options: .new,
             context: nil)
 
-        presenter?.viewDidLoad()  // Вызов презентера для загрузки страницы и сброса прогресса
+        presenter?.viewDidLoad()  
     }
 
     func load(request: URLRequest) {
