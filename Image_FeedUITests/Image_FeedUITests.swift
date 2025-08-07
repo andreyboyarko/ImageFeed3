@@ -24,13 +24,13 @@ final class Image_FeedUITests: XCTestCase {
         let loginTextField = webView.textFields.element
         XCTAssertTrue(loginTextField.waitForExistence(timeout: 5), "Поле логина не найдено")
         loginTextField.tap()
-        loginTextField.typeText("andreyboyarko@gmail.com")
+        loginTextField.typeText("Login")
 
         // 4. Найти поле пароля
         let passwordTextField = webView.secureTextFields.element
         XCTAssertTrue(passwordTextField.waitForExistence(timeout: 5), "Поле пароля не найдено")
         passwordTextField.tap()
-        passwordTextField.typeText("989874851")
+        passwordTextField.typeText("Password")
 
         // 5. Нажать кнопку "Login"
         let loginButton = webView.buttons["Login"]
@@ -43,45 +43,47 @@ final class Image_FeedUITests: XCTestCase {
     }
 
     func testFeed() throws {
-        let app = XCUIApplication()
-
+        // 1. Подождать загрузку экрана ленты
         let feedTable = app.tables.firstMatch
         XCTAssertTrue(feedTable.waitForExistence(timeout: 5), "Feed table did not load")
 
-        // Достаём первую ячейку и убеждаемся, что она существует
+        // 2. Проскроллить вверх
+        feedTable.swipeUp()
+
+        // 3. Найти первую ячейку
         let firstCell = feedTable.cells.element(boundBy: 0)
         XCTAssertTrue(firstCell.waitForExistence(timeout: 5), "First cell not found")
 
-        // Если ячейка не видна, делаем свайп (можно удалить, если не требуется)
-        firstCell.swipeUp()
-
-        // Ждём появления кнопки лайка внутри первой ячейки
+        // 4. Найти кнопку лайка и поставить лайк
         let likeButton = firstCell.buttons["likeButton"]
-        XCTAssertTrue(likeButton.waitForExistence(timeout: 5), "Like button not found")
-        
-        // Лайк / дизлайк
+        XCTAssertTrue(likeButton.exists, "Like button not found")
         likeButton.tap()
+        
+        // 5. Снять лайк
         likeButton.tap()
 
-        // Тап по ячейке — открытие полноэкранного фото
+        // 6. Открыть картинку на весь экран
         firstCell.tap()
 
+        // 7. Проверить, что открылся экран с картинкой
         let imageView = app.scrollViews.images.element(boundBy: 0)
-        XCTAssertTrue(imageView.waitForExistence(timeout: 5), "Full screen image not found")
+        XCTAssertTrue(imageView.waitForExistence(timeout: 5), "Full screen image did not appear")
 
-        // Зум
+        // 8. Увеличить картинку
         imageView.pinch(withScale: 3, velocity: 1)
+
+        // 9. Уменьшить картинку
         imageView.pinch(withScale: 0.5, velocity: -1)
 
-        // Назад
+        // 10. Вернуться назад
         let backButton = app.buttons["backButton"]
-        XCTAssertTrue(backButton.waitForExistence(timeout: 5), "Back button not found")
+        XCTAssertTrue(backButton.exists, "Back button not found")
         backButton.tap()
 
-        // Проверка, что снова отобразилась таблица с лентой
+        // Проверить, что вернулись в ленту
         XCTAssertTrue(feedTable.waitForExistence(timeout: 5), "Did not return to feed")
     }
-
+    
     func testProfile() throws {
         let app = XCUIApplication()
         
