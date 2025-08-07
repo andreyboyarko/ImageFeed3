@@ -18,6 +18,7 @@ final class ImagesListCell: UITableViewCell {
         super.awakeFromNib()
         cellImage.layer.cornerRadius = 16
         cellImage.layer.masksToBounds = true
+        likeButton.accessibilityIdentifier = "likeButton"
     }
 
     override func prepareForReuse() {

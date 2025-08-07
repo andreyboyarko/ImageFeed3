@@ -54,6 +54,7 @@ final class ProfileViewController: UIViewController {
         let button = UIButton(type: .custom)
         button.setImage(UIImage(named: "exite_button"), for: .normal)
         button.translatesAutoresizingMaskIntoConstraints = false
+        button.accessibilityIdentifier = "exitButton"
         return button
     }()
 

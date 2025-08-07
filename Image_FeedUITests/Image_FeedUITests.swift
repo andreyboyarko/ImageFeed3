@@ -8,121 +8,116 @@ final class Image_FeedUITests: XCTestCase {
         app.launch()
     }
 
-    override func tearDownWithError() throws {
-        
-    }
+    override func tearDownWithError() throws {}
 
     func testAuth() throws {
-        // 1. Нажать кнопку "Authenticate"
-        app.buttons["Authenticate"].tap()
+        // 1. Найти и нажать кнопку "Authenticate"
+        let authButton = app.buttons["Authenticate"]
+        XCTAssertTrue(authButton.waitForExistence(timeout: 5), "Кнопка Authenticate не найдена")
+        authButton.tap()
 
         // 2. Найти WebView
         let webView = app.webViews["UnsplashWebView"]
         XCTAssertTrue(webView.waitForExistence(timeout: 5), "WebView не загрузился")
 
         // 3. Найти поле логина
-        let loginTextField = webView.descendants(matching: .textField).element
+        let loginTextField = webView.textFields.element
         XCTAssertTrue(loginTextField.waitForExistence(timeout: 5), "Поле логина не найдено")
-
-        // 4. Ввести логин
         loginTextField.tap()
-        loginTextField.typeText("Login")
+        loginTextField.typeText("andreyboyarko@gmail.com")
 
-        // 5. Скрыть клавиатуру, если нужно
-        webView.swipeUp()
-
-        // 6. Найти поле пароля
-        let passwordTextField = webView.descendants(matching: .secureTextField).element
+        // 4. Найти поле пароля
+        let passwordTextField = webView.secureTextFields.element
         XCTAssertTrue(passwordTextField.waitForExistence(timeout: 5), "Поле пароля не найдено")
-
-        // 7. Ввести пароль
         passwordTextField.tap()
-        passwordTextField.typeText("Pasword")
+        passwordTextField.typeText("989874851")
 
-        // 8. Скрыть клавиатуру, если нужно
-        webView.swipeUp()
-
-        // 9. Найти кнопку "Login" и нажать
+        // 5. Нажать кнопку "Login"
         let loginButton = webView.buttons["Login"]
         XCTAssertTrue(loginButton.waitForExistence(timeout: 5), "Кнопка Login не найдена")
         loginButton.tap()
 
-        // 10. Проверить, что появилась лента (первый cell)
-        let tablesQuery = app.tables
-        let cell = tablesQuery.children(matching: .cell).element(boundBy: 0)
-        XCTAssertTrue(cell.waitForExistence(timeout: 5), "Лента не загрузилась")
+        // 6. Проверить появление ленты
+        let firstCell = app.tables.cells.element(boundBy: 0)
+        XCTAssertTrue(firstCell.waitForExistence(timeout: 5), "Лента не загрузилась")
     }
-    
+
     func testFeed() throws {
-            // 1. Подождать загрузку экрана ленты
-            let feedTable = app.tables.firstMatch
-            XCTAssertTrue(feedTable.waitForExistence(timeout: 5), "Feed table did not load")
+        let app = XCUIApplication()
 
-            // 2. Проскроллить вверх
-            feedTable.swipeUp()
+        let feedTable = app.tables.firstMatch
+        XCTAssertTrue(feedTable.waitForExistence(timeout: 5), "Feed table did not load")
 
-            // 3. Найти первую ячейку
-            let firstCell = feedTable.cells.element(boundBy: 0)
-            XCTAssertTrue(firstCell.waitForExistence(timeout: 5), "First cell not found")
+        // Достаём первую ячейку и убеждаемся, что она существует
+        let firstCell = feedTable.cells.element(boundBy: 0)
+        XCTAssertTrue(firstCell.waitForExistence(timeout: 5), "First cell not found")
 
-            // 4. Найти кнопку лайка и поставить лайк
-            let likeButton = firstCell.buttons["likeButton"]
-            XCTAssertTrue(likeButton.exists, "Like button not found")
-            likeButton.tap()
+        // Если ячейка не видна, делаем свайп (можно удалить, если не требуется)
+        firstCell.swipeUp()
 
-            // 5. Снять лайк
-            likeButton.tap()
+        // Ждём появления кнопки лайка внутри первой ячейки
+        let likeButton = firstCell.buttons["likeButton"]
+        XCTAssertTrue(likeButton.waitForExistence(timeout: 5), "Like button not found")
+        
+        // Лайк / дизлайк
+        likeButton.tap()
+        likeButton.tap()
 
-            // 6. Открыть картинку на весь экран
-            firstCell.tap()
+        // Тап по ячейке — открытие полноэкранного фото
+        firstCell.tap()
 
-            // 7. Проверить, что открылся экран с картинкой
-            let imageView = app.scrollViews.images.element(boundBy: 0)
-            XCTAssertTrue(imageView.waitForExistence(timeout: 5), "Full screen image did not appear")
+        let imageView = app.scrollViews.images.element(boundBy: 0)
+        XCTAssertTrue(imageView.waitForExistence(timeout: 5), "Full screen image not found")
 
-            // 8. Увеличить картинку
-            imageView.pinch(withScale: 3, velocity: 1)
+        // Зум
+        imageView.pinch(withScale: 3, velocity: 1)
+        imageView.pinch(withScale: 0.5, velocity: -1)
 
-            // 9. Уменьшить картинку
-            imageView.pinch(withScale: 0.5, velocity: -1)
+        // Назад
+        let backButton = app.buttons["backButton"]
+        XCTAssertTrue(backButton.waitForExistence(timeout: 5), "Back button not found")
+        backButton.tap()
 
-            // 10. Вернуться назад
-            let backButton = app.buttons["backButton"]
-            XCTAssertTrue(backButton.exists, "Back button not found")
-            backButton.tap()
+        // Проверка, что снова отобразилась таблица с лентой
+        XCTAssertTrue(feedTable.waitForExistence(timeout: 5), "Did not return to feed")
+    }
 
-            // Проверить, что вернулись в ленту
-            XCTAssertTrue(feedTable.waitForExistence(timeout: 5), "Did not return to feed")
+    func testProfile() throws {
+        let app = XCUIApplication()
+        
+        // Если отображается кнопка "Authenticate", значит нужно авторизоваться
+        if app.buttons["Authenticate"].exists {
+            try testAuth() // Выполняем авторизацию
         }
 
-        func testProfile() throws {
-            // 1. Подождать загрузку экрана ленты
-            let feedTable = app.tables.firstMatch
-            XCTAssertTrue(feedTable.waitForExistence(timeout: 5), "Feed table did not load")
+        // Ждём таблицу с лентой
+        let feedTable = app.tables.firstMatch
+        XCTAssertTrue(feedTable.waitForExistence(timeout: 10), "Feed table did not load")
 
-            // 2. Перейти на экран профиля (по тапу на Tab Bar)
-            let profileTab = app.tabBars.buttons.element(boundBy: 1)
-            XCTAssertTrue(profileTab.exists, "Profile tab not found")
-            profileTab.tap()
+        // Переход на вкладку Профиля
+        let profileTab = app.tabBars.buttons.element(boundBy: 1)
+        XCTAssertTrue(profileTab.exists, "Profile tab not found")
+        profileTab.tap()
 
-            // 3. Проверить наличие данных профиля
-            let usernameLabel = app.staticTexts["usernameLabel"]
-            XCTAssertTrue(usernameLabel.waitForExistence(timeout: 5), "Username label not found")
+        // Проверка отображения данных профиля
+        let usernameLabel = app.staticTexts["usernameLabel"]
+        XCTAssertTrue(usernameLabel.waitForExistence(timeout: 5), "Username label not found")
 
-            // 4. Нажать кнопку логаута
-            let logoutButton = app.buttons["exitButton"]
-            XCTAssertTrue(logoutButton.exists, "Logout button not found")
-            logoutButton.tap()
+        // Логаут
+        let logoutButton = app.buttons["exitButton"]
+        XCTAssertTrue(logoutButton.exists, "Logout button not found")
+        logoutButton.tap()
 
-            // 5. Подтвердить выход (если есть Alert)
-            let confirmButton = app.alerts.buttons["Да"]
-            if confirmButton.exists {
-                confirmButton.tap()
-            }
-
-            // 6. Проверить, что открылся экран авторизации
-            let authButton = app.buttons["Authenticate"]
-            XCTAssertTrue(authButton.waitForExistence(timeout: 5), "Auth screen did not appear")
+        // Подтверждение
+        let confirmButton = app.alerts.buttons["Да"]
+        if confirmButton.waitForExistence(timeout: 3) {
+            confirmButton.tap()
         }
+
+        // Проверка, что вернулись на экран авторизации
+        let authButton = app.buttons["Authenticate"]
+        XCTAssertTrue(authButton.waitForExistence(timeout: 5), "Auth screen did not appear")
+    }
 
 }
+
