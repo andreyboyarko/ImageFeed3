@@ -1,10 +1,22 @@
 import UIKit
 import Kingfisher
 
+protocol ImagesListViewControllerProtocol: AnyObject {
+    func updateTableView() // // Логику доабвлю позже
+}
+
 final class ImagesListViewController: UIViewController {
+    
+    private var presenter: ImagesListPresenterProtocol!
+    func configure(_ presenter: ImagesListPresenterProtocol) {
+           self.presenter = presenter
+           presenter.view = self
+       }
+    
     private let showSingleImageSegueIdentifier = "ShowSingleImage"
     
-    @IBOutlet private var tableView: UITableView!
+
+    @IBOutlet weak var tableView: UITableView!
     
     private var photos: [Photo] = []
     private var imagesListServiceObserver: NSObjectProtocol?
@@ -20,6 +32,7 @@ final class ImagesListViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        presenter.viewDidLoad()
         configureTableView()
         imagesListService.fetchPhotosNextPage()
         subscribeToNotifications()
@@ -37,13 +50,15 @@ final class ImagesListViewController: UIViewController {
     
     private func updateTableViewAnimated() {
         let oldCount = photos.count
-        let newCount = imagesListService.photos.count
-        guard oldCount != newCount else { return }
-        
-        photos = imagesListService.photos
-        
+        let newPhotos = imagesListService.photos
+
+        guard newPhotos.count > oldCount else { return }
+
+        let indexPaths = (oldCount..<newPhotos.count).map { IndexPath(row: $0, section: 0) }
+
+        photos = newPhotos
+
         tableView.performBatchUpdates {
-            let indexPaths = (oldCount..<newCount).map { IndexPath(row: $0, section: 0) }
             tableView.insertRows(at: indexPaths, with: .automatic)
         }
     }
@@ -163,4 +178,11 @@ extension ImagesListViewController: ImagesListCellDelegate {
         }
     }
 }
+
+extension ImagesListViewController: ImagesListViewControllerProtocol {
+    func updateTableView() {
+      // Логику доабвлю позже
+    }
+}
+
 

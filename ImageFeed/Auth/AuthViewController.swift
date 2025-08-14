@@ -7,7 +7,7 @@ protocol AuthViewControllerDelegate: AnyObject {
 }
 
 final class AuthViewController: UIViewController {
-    private let ShowWebViewSegueIdentifier = "ShowWebView"
+    private let showWebViewSegueIdentifier = "ShowWebView"
 
     weak var delegate: AuthViewControllerDelegate?
 
@@ -42,15 +42,25 @@ final class AuthViewController: UIViewController {
         loginButton.layer.cornerRadius = 16
         loginButton.layer.masksToBounds = true
     }
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == ShowWebViewSegueIdentifier {
+        if segue.identifier == showWebViewSegueIdentifier {
             navigationItem.backBarButtonItem = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
             navigationItem.backBarButtonItem?.tintColor = UIColor(named: "YP Black")
 
-            if let webVC = segue.destination as? WebViewViewController {
-                webVC.delegate = self
+            guard
+                let webViewViewController = segue.destination as? WebViewViewController
+            else {
+                assertionFailure("Failed to prepare for \(showWebViewSegueIdentifier)")
+                return
             }
+
+            let authHelper = AuthHelper()
+            let webViewPresenter = WebViewPresenter(authHelper: authHelper)
+
+            webViewViewController.presenter = webViewPresenter
+            webViewPresenter.view = webViewViewController
+            webViewViewController.delegate = self
         } else {
             super.prepare(for: segue, sender: sender)
         }
